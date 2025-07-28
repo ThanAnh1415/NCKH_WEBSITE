@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khả Năng Phục Hồi & Áp Lực Học Tập</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CÀI ĐẶT CSS TOÀN CỤC --- */
+        :root {
+            --primary-color: #3B82F6; /* Xanh dương */
+            --secondary-color: #10B981; /* Xanh lá */
+            --background-color: #F0F9FF; /* Xanh dương rất nhạt */
+            --text-color: #1F2937; /* Xám đậm */
+            --light-text-color: #6B7280; /* Xám nhạt */
+            --card-bg: #FFFFFF;
+            --shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            --border-radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- HIỆU ỨNG PRELOADER (MÀN HÌNH CHỜ) --- */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 0.7s ease-in-out, visibility 0.7s ease-in-out;
+        }
+
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .whale-loader {
+            width: 150px;
+            height: 150px;
+            animation: whale-bob 2s ease-in-out infinite;
+        }
+
+        @keyframes whale-bob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        #preloader p {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        /* --- BỐ CỤC CHÍNH --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            cursor: pointer; /* Để mở admin panel */
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: var(--light-text-color);
+        }
+
+        /* --- CÁC NÚT BẤM CHÍNH --- */
+        .main-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .btn:hover:before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* --- PHẦN NỘI DUNG THÔNG TIN --- */
+        #info-section {
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-top: 2rem;
+            display: none; /* Ẩn mặc định */
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #info-section h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+        }
+
+        .info-block {
+            margin-bottom: 1.5rem;
+        }
+
+        .info-block h3 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-links h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        .info-links ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .info-links li {
+            margin-bottom: 0.5rem;
+        }
+        .info-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .info-links a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        /* --- ROBOT CHIBI "TÈO AURA" --- */
+        #teo-aura-bot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 150px;
+            height: 150px;
+            z-index: 1000;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        #teo-aura-bot:hover {
+            transform: scale(1.1);
+        }
+        
+        .robot-svg {
+            width: 100%;
+            height: 100%;
+            animation: robot-float 3s ease-in-out infinite;
+        }
+
+        @keyframes robot-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        #teo-speech-bubble {
+            position: fixed;
+            bottom: 180px;
+            right: 50px;
+            background-color: var(--card-bg);
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            max-width: 300px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            z-index: 1001;
+            font-size: 0.95rem;
+        }
+
+        #teo-speech-bubble.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* --- MODAL (KHUNG POP-UP) --- */
+        .modal {
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            display: none; /* Ẩn mặc định */
+            justify-content: center;
+            align-items: center;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: var(--background-color);
+            margin: auto;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            text-align: center;
+        }
+
+        .close-btn {
+            color: var(--light-text-color);
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: var(--text-color);
+        }
+
+        /* --- KHẢO SÁT --- */
+        #survey-modal h2 {
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+        }
+
+        .survey-step {
+            display: none;
+        }
+        .survey-step.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        #nickname-step input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        #question-container {
+            margin-bottom: 2rem;
+        }
+        #question-text {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            align-items: flex-start;
+            text-align: left;
+            max-width: 350px;
+            margin: 0 auto;
+        }
+        .answer-options label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+            width: 100%;
+        }
+        .answer-options input[type="radio"] {
+            margin-right: 10px;
+        }
+        .answer-options label:hover {
+            background-color: #e0f2fe;
+        }
+
+        #progress-bar-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+        #progress-bar {
+            width: 0%;
+            height: 10px;
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            transition: width 0.4s ease;
+        }
+
+        .survey-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        
+        .survey-nav .btn-secondary {
+            background: var(--card-bg);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            box-shadow: none;
+        }
+        .survey-nav .btn-secondary:hover {
+            background: #e0f2fe;
+        }
+
+        #result-step h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        #result-score {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+        #result-level {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin: 0.5rem 0 1.5rem;
+        }
+        #result-advice {
+            font-size: 1.1rem;
+            color: var(--light-text-color);
+            line-height: 1.7;
+            background: #e0f2fe;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary-color);
+            text-align: left;
+        }
+
+        /* --- MINIGAME --- */
+        #game-modal .modal-content {
+            max-width: 800px;
+        }
+        #game-canvas {
+            background-color: #87CEEB; /* Sky blue */
+            border-radius: 8px;
+            width: 100%;
+            height: 500px;
+            display: block;
+        }
+        #game-modal h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        #game-modal p {
+            margin-bottom: 1rem;
+            color: var(--light-text-color);
+        }
+        #game-end-message {
+            display: none;
+            padding: 2rem;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: var(--border-radius);
+            font-size: 1.5rem;
+            font-weight: 500;
+            animation: fadeIn 0.5s;
+        }
+
+        /* --- ADMIN PANEL --- */
+        #admin-modal .modal-content {
+            max-width: 800px;
+        }
+        #admin-modal h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        #admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        #admin-table th, #admin-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        #admin-table th {
+            background-color: #e0f2fe;
+            color: var(--primary-color);
+        }
+        #admin-table tbody tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2rem;
+            }
+            .main-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            #teo-aura-bot {
+                width: 100px;
+                height: 100px;
+                right: 10px;
+                bottom: 10px;
+            }
+            #teo-speech-bubble {
+                bottom: 120px;
+                right: 10px;
+                max-width: 250px;
+            }
+            .modal-content {
+                padding: 20px;
+            }
+            #game-canvas {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PHẦN 1: HIỆU ỨNG PRELOADER (MÀN HÌNH CHỜ) -->
+    <div id="preloader">
+        <svg class="whale-loader" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#3B82F6" d="M95.6,35.9c-2.4-9.3-9.8-16.7-19.1-19.1c-2.8-0.7-5.7-1.1-8.6-1.1c-12.8,0-23.8,8.1-28.3,19.6 c-0.5,1.2-0.8,2.5-1.1,3.8c-2.3,0.1-4.5,0.5-6.6,1.2c-7.3,2.4-12.9,8-15.3,15.3c-0.7,2.1-1.1,4.3-1.2,6.6 c-1.2-0.3-2.5-0.5-3.8-0.8C4.5,60,0,55.1,0,48.5c0-3.3,1.3-6.4,3.5-8.6c-1.8-4.4-2.2-9.3-1.1-14c2.4-9.3,9.8-16.7,19.1-19.1 C24.4,6,27.7,5.4,31.1,5.4c3.4,0,6.7,0.6,9.8,1.8c4.4-5.3,10.6-8.8,17.6-8.8c9.9,0,18.3,6.5,21.3,15.5c2.9-1,6-1.6,9.2-1.6 c7.6,0,14.3,3.7,18.5,9.4C102.3,28.2,99.9,33.1,95.6,35.9z"/>
+            <ellipse fill="#FFFFFF" cx="75" cy="28" rx="4" ry="5"/>
+        </svg>
+        <p>Đang tải thế giới diệu kỳ...</p>
+    </div>
+
+    <!-- PHẦN 2: NỘI DUNG CHÍNH CỦA TRANG -->
+    <div class="container">
+        <!-- TIÊU ĐỀ -->
+        <header>
+            <h1 id="main-title">Hành Trình Chữa Lành & Trưởng Thành</h1>
+            <p>Khám phá mối liên hệ giữa khả năng phục hồi và áp lực học tập</p>
+        </header>
+
+        <!-- CÁC NÚT HÀNH ĐỘNG -->
+        <div class="main-actions">
+            <button class="btn" id="info-btn">Tìm hiểu thêm thông tin</button>
+            <button class="btn" id="survey-btn">Làm bài khảo sát nhanh</button>
+            <button class="btn" id="game-btn">Minigame: Đường đua dũng cảm</button>
+        </div>
+
+        <!-- ROBOT "TÈO AURA" VÀ BONG BÓNG CHAT -->
+        <div id="teo-aura-bot">
+             <svg class="robot-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <!-- Body -->
+                <path fill="#4A90E2" d="M50,150 a50,50 0 0,1 100,0 Z"/>
+                <!-- Head -->
+                <circle cx="100" cy="80" r="45" fill="#90CAF9"/>
+                <!-- Eye -->
+                <rect x="70" y="70" width="60" height="20" rx="10" fill="#212121"/>
+                <rect x="75" y="72" width="15" height="15" fill="#50FA7B" class="robot-eye-light"/>
+                <!-- Antenna -->
+                <line x1="100" y1="35" x2="100" y2="20" stroke="#616161" stroke-width="4"/>
+                <circle cx="100" cy="18" r="5" fill="#FBC02D"/>
+            </svg>
+        </div>
+        <div id="teo-speech-bubble">
+            Xin chào em! Anh là Tèo Aura. Em có điều gì cần anh giúp không?
+        </div>
+
+
+        <!-- PHẦN NỘI DUNG THÔNG TIN (ẨN MẶC ĐỊNH) -->
+        <section id="info-section">
+            <h2>Mối Liên Hệ Giữa Khả Năng Phục Hồi và Áp Lực Học Tập</h2>
+            
+            <div class="info-block">
+                <h3>1. Áp lực học tập là gì?</h3>
+                <p>Áp lực học tập là những căng thẳng, lo âu mà học sinh phải đối mặt từ nhiều phía: khối lượng bài vở lớn, kỳ vọng của gia đình, thầy cô, sự cạnh tranh từ bạn bè và cả những mục tiêu do chính bản thân đặt ra. Đây là một phần không thể tránh khỏi trong quá trình học tập, nhưng nếu quá mức, nó có thể gây ảnh hưởng tiêu cực đến sức khỏe tinh thần và thể chất.</p>
+            </div>
+
+            <div class="info-block">
+                <h3>2. Khả năng phục hồi (Resilience) - "Sức bật" tinh thần</h3>
+                <p>Khả năng phục hồi là năng lực vượt qua, thích ứng và thậm chí là phát triển mạnh mẽ hơn sau khi đối mặt với nghịch cảnh, chấn thương, hoặc căng thẳng. Nó không phải là "không bao giờ gục ngã", mà là khả năng "đứng dậy sau mỗi lần vấp ngã". Đây là một kỹ năng có thể rèn luyện được.</p>
+            </div>
+
+            <div class="info-block">
+                <h3>3. Mối liên hệ quan trọng</h3>
+                <p>Học sinh có khả năng phục hồi tốt thường có xu hướng:
+                    <br>- Xem thách thức là cơ hội để học hỏi.
+                    <br>- Có kỹ năng giải quyết vấn đề hiệu quả hơn.
+                    <br>- Duy trì thái độ lạc quan và tin tưởng vào bản thân.
+                    <br>- Biết cách tìm kiếm sự giúp đỡ khi cần thiết.
+                    <br>Nhờ vậy, họ có thể "chuyển hóa" áp lực thành động lực, giảm thiểu các tác động tiêu cực của stress và đạt được thành công một cách bền vững hơn.</p>
+            </div>
+
+            <div class="info-links">
+                <h3>Các bài báo và tài liệu tham khảo:</h3>
+                <ul>
+                    <li><a href="https://vietnamnet.vn/ap-luc-hoc-hanh-cua-hoc-sinh-viet-nam-khien-chuyen-gia-nuoc-ngoai-soc-2115160.html" target="_blank">VietNamNet: Áp lực học hành của học sinh Việt Nam</a></li>
+                    <li><a href="https://suckhoedoisong.vn/lam-gi-de-giup-tre-vuot-qua-ap-luc-hoc-tap-169230524180052739.htm" target="_blank">Báo Sức khỏe & Đời sống: Giúp trẻ vượt qua áp lực học tập</a></li>
+                    <li><a href="https://www.apa.org/topics/resilience" target="_blank">American Psychological Association: Building your resilience (Tiếng Anh)</a></li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <!-- PHẦN 3: CÁC MODAL (KHUNG POP-UP) -->
+
+    <!-- MODAL KHẢO SÁT -->
+    <div id="survey-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div id="nickname-step" class="survey-step active">
+                <h2>Khảo sát nhanh về mức độ lo âu</h2>
+                <p>Trước khi bắt đầu, hãy cho Tèo biết biệt danh của em nhé!</p>
+                <input type="text" id="nickname-input" placeholder="Nhập biệt danh của em...">
+                <button class="btn" id="start-survey-btn">Bắt đầu</button>
+            </div>
+            <div id="question-step" class="survey-step">
+                <div id="question-container">
+                    <p id="question-text"></p>
+                    <div class="answer-options" id="answer-options"></div>
+                </div>
+                <div id="progress-bar-container">
+                    <div id="progress-bar"></div>
+                </div>
+                <div class="survey-nav">
+                    <button class="btn btn-secondary" id="prev-btn">Quay lại</button>
+                    <button class="btn" id="next-btn">Tiếp theo</button>
+                </div>
+            </div>
+            <div id="result-step" class="survey-step">
+                <h2>Kết quả của em</h2>
+                <h3 id="result-nickname"></h3>
+                <p>Tổng điểm của em là:</p>
+                <p id="result-score"></p>
+                <p id="result-level"></p>
+                <div id="result-advice"></div>
+                <button class="btn" id="close-result-btn" style="margin-top: 20px;">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL MINIGAME -->
+    <div id="game-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Minigame: Đường đua dũng cảm</h2>
+            <p>Sử dụng các phím mũi tên (← →) để di chuyển Tèo. Hãy thu thập các vật phẩm hỗ trợ và né tránh chướng ngại vật nhé!</p>
+            <canvas id="game-canvas"></canvas>
+             <div id="game-end-message"></div>
+        </div>
+    </div>
+
+    <!-- MODAL ADMIN -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Dữ liệu khảo sát</h2>
+            <p>Tổng số lượt tham gia: <span id="participant-count">0</span></p>
+            <table id="admin-table">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Biệt danh</th>
+                        <th>Điểm</th>
+                        <th>Mức độ</th>
+                        <th>Thời gian</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-table-body">
+                    <!-- Dữ liệu sẽ được chèn vào đây bằng JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <script>
+    // --- SCRIPT CHUNG CHO TOÀN BỘ TRANG WEB ---
+
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        // --- PHẦN 1: KHỞI TẠO VÀ XỬ LÝ PRELOADER ---
+        const preloader = document.getElementById('preloader');
+        window.addEventListener('load', () => {
+            preloader.classList.add('hidden');
+        });
+
+        // --- PHẦN 2: CÁC BIẾN VÀ ĐỐI TƯỢNG DOM ---
+        const infoBtn = document.getElementById('info-btn');
+        const surveyBtn = document.getElementById('survey-btn');
+        const gameBtn = document.getElementById('game-btn');
+        
+        const infoSection = document.getElementById('info-section');
+        
+        const surveyModal = document.getElementById('survey-modal');
+        const gameModal = document.getElementById('game-modal');
+        const adminModal = document.getElementById('admin-modal');
+        
+        const closeBtns = document.querySelectorAll('.close-btn');
+        const teoBot = document.getElementById('teo-aura-bot');
+        const teoSpeechBubble = document.getElementById('teo-speech-bubble');
+
+        // --- PHẦN 3: XỬ LÝ CÁC SỰ KIỆN CHÍNH ---
+
+        // Hiển thị/ẩn phần thông tin
+        infoBtn.addEventListener('click', () => {
+            if (infoSection.style.display === 'block') {
+                infoSection.style.display = 'none';
+            } else {
+                infoSection.style.display = 'block';
+            }
+        });
+
+        // Mở các modal
+        surveyBtn.addEventListener('click', () => {
+            surveyModal.style.display = 'flex';
+            resetSurvey();
+        });
+        gameBtn.addEventListener('click', () => {
+            gameModal.style.display = 'flex';
+            startGame(); // Bắt đầu game khi mở modal
+        });
+        
+        // Đóng các modal
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.closest('.modal').style.display = 'none';
+                if (gameRunning) {
+                    stopGame(); // Dừng game nếu đóng modal
+                }
+            });
+        });
+        window.addEventListener('click', (event) => {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                if (gameRunning) {
+                    stopGame();
+                }
+            }
+        });
+
+        // Tương tác với Tèo Aura
+        let speechTimeout;
+        teoBot.addEventListener('mouseenter', () => {
+            clearTimeout(speechTimeout);
+            teoSpeechBubble.classList.add('visible');
+        });
+        teoBot.addEventListener('mouseleave', () => {
+            speechTimeout = setTimeout(() => {
+                teoSpeechBubble.classList.remove('visible');
+            }, 2000);
+        });
+        
+        // --- PHẦN 4: LOGIC CỦA BÀI KHẢO SÁT ---
+        const surveyData = []; // Nơi lưu trữ dữ liệu khảo sát
+        const GAD7_QUESTIONS = [
+            "Cảm thấy lo lắng, bồn chồn hoặc căng thẳng?",
+            "Không thể dừng lại hoặc kiểm soát được sự lo lắng?",
+            "Lo lắng quá nhiều về những điều khác nhau?",
+            "Khó thư giãn?",
+            "Cảm thấy bồn chồn đến mức không thể ngồi yên?",
+            "Dễ trở nên cáu kỉnh hoặc khó chịu?",
+            "Cảm thấy sợ hãi như thể có điều gì đó khủng khiếp sắp xảy ra?"
+        ];
+        const GAD7_ANSWERS = [
+            { text: "Không ngày nào", value: 0 },
+            { text: "Vài ngày", value: 1 },
+            { text: "Hơn một nửa số ngày", value: 2 },
+            { text: "Gần như mỗi ngày", value: 3 }
+        ];
+
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let userNickname = '';
+
+        const nicknameStep = document.getElementById('nickname-step');
+        const questionStep = document.getElementById('question-step');
+        const resultStep = document.getElementById('result-step');
+        const startSurveyBtn = document.getElementById('start-survey-btn');
+        const nicknameInput = document.getElementById('nickname-input');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const questionText = document.getElementById('question-text');
+        const answerOptionsContainer = document.getElementById('answer-options');
+        const progressBar = document.getElementById('progress-bar');
+        const closeResultBtn = document.getElementById('close-result-btn');
+
+        function resetSurvey() {
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            userNickname = '';
+            nicknameInput.value = '';
+            nicknameStep.classList.add('active');
+            questionStep.classList.remove('active');
+            resultStep.classList.remove('active');
+        }
+
+        startSurveyBtn.addEventListener('click', () => {
+            userNickname = nicknameInput.value.trim();
+            if (userNickname === '') {
+                alert('Em vui lòng nhập biệt danh nhé!');
+                return;
+            }
+            nicknameStep.classList.remove('active');
+            questionStep.classList.add('active');
+            showQuestion();
+        });
+        
+        function showQuestion() {
+            const question = GAD7_QUESTIONS[currentQuestionIndex];
+            questionText.textContent = `${currentQuestionIndex + 1}. ${question}`;
+            
+            answerOptionsContainer.innerHTML = '';
+            GAD7_ANSWERS.forEach((answer, index) => {
+                const optionId = `q${currentQuestionIndex}-a${index}`;
+                const checked = userAnswers[currentQuestionIndex] === answer.value ? 'checked' : '';
+                answerOptionsContainer.innerHTML += `
+                    <label for="${optionId}">
+                        <input type="radio" name="answer" id="${optionId}" value="${answer.value}" ${checked}>
+                        ${answer.text}
+                    </label>
+                `;
+            });
+
+            updateProgressBar();
+            updateNavButtons();
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentQuestionIndex + 1) / GAD7_QUESTIONS.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function updateNavButtons() {
+            prevBtn.style.visibility = currentQuestionIndex === 0 ? 'hidden' : 'visible';
+            nextBtn.textContent = currentQuestionIndex === GAD7_QUESTIONS.length - 1 ? 'Hoàn thành' : 'Tiếp theo';
+        }
+
+        nextBtn.addEventListener('click', () => {
+            const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+            if (!selectedAnswer) {
+                alert('Em hãy chọn một câu trả lời nhé!');
+                return;
+            }
+            userAnswers[currentQuestionIndex] = parseInt(selectedAnswer.value);
+
+            if (currentQuestionIndex < GAD7_QUESTIONS.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                showResults();
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        });
+
+        function showResults() {
+            questionStep.classList.remove('active');
+            resultStep.classList.add('active');
+
+            const totalScore = userAnswers.reduce((sum, answer) => sum + answer, 0);
+            let level = '';
+            let advice = '';
+
+            if (totalScore <= 4) {
+                level = "Mức độ lo âu tối thiểu";
+                advice = `Em đang làm rất tốt trong việc quản lý cảm xúc của mình. Hãy tiếp tục duy trì những thói quen tích cực nhé. Tèo rất tự hào về em!`;
+            } else if (totalScore <= 9) {
+                level = "Mức độ lo âu nhẹ";
+                advice = `Thỉnh thoảng cảm thấy lo lắng một chút là chuyện bình thường thôi em à. Hãy thử dành thời gian cho sở thích của mình hoặc trò chuyện với bạn bè, người thân. Mọi chuyện rồi sẽ ổn thôi.`;
+            } else if (totalScore <= 14) {
+                level = "Mức độ lo âu vừa";
+                advice = `Tèo hiểu em đang cảm thấy khá căng thẳng. Đừng quên hít thở sâu và cho phép mình được nghỉ ngơi nhé. Em không hề đơn độc đâu, Tèo luôn ở đây lắng nghe.`;
+            } else {
+                level = "Mức độ lo âu nặng";
+                advice = `Em à, em đã rất dũng cảm khi đối mặt với những cảm xúc này. Đừng ngần ngại tìm kiếm sự giúp đỡ từ chuyên gia tâm lý hoặc người lớn mà em tin tưởng nhé. Em xứng đáng được yêu thương và hỗ trợ.`;
+            }
+
+            document.getElementById('result-nickname').textContent = `Dành cho ${userNickname},`;
+            document.getElementById('result-score').textContent = totalScore;
+            document.getElementById('result-level').textContent = level;
+            document.getElementById('result-advice').textContent = advice;
+            
+            // Lưu kết quả
+            const resultData = {
+                nickname: userNickname,
+                score: totalScore,
+                level: level,
+                timestamp: new Date().toLocaleString('vi-VN')
+            };
+            surveyData.push(resultData);
+            updateAdminPanel(); // Cập nhật bảng admin
+        }
+
+        closeResultBtn.addEventListener('click', () => {
+            surveyModal.style.display = 'none';
+        });
+
+        // --- PHẦN 5: LOGIC CỦA ADMIN PANEL ---
+        const mainTitle = document.getElementById('main-title');
+        let titleClickCount = 0;
+        mainTitle.addEventListener('click', () => {
+            titleClickCount++;
+            if (titleClickCount >= 5) {
+                adminModal.style.display = 'flex';
+                titleClickCount = 0; // Reset
+            }
+            setTimeout(() => { titleClickCount = 0; }, 2000); // Reset sau 2s
+        });
+
+        function updateAdminPanel() {
+            const tableBody = document.getElementById('admin-table-body');
+            const participantCount = document.getElementById('participant-count');
+            
+            participantCount.textContent = surveyData.length;
+            tableBody.innerHTML = '';
+            surveyData.forEach((data, index) => {
+                const row = `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${data.nickname}</td>
+                        <td>${data.score}</td>
+                        <td>${data.level}</td>
+                        <td>${data.timestamp}</td>
+                    </tr>
+                `;
+                tableBody.innerHTML += row;
+            });
+        }
+        
+        // --- PHẦN 6: LOGIC CỦA MINIGAME ---
+        const canvas = document.getElementById('game-canvas');
+        const ctx = canvas.getContext('2d');
+        const gameEndMessage = document.getElementById('game-end-message');
+
+        let player, obstacles, powerUps;
+        let score = 0;
+        let gameFrame = 0;
+        let gameRunning = false;
+        let animationFrameId;
+
+        const keys = {
+            arrowRight: false,
+            arrowLeft: false,
+        };
+
+        // Player object
+        const playerSprite = {
+            x: 100, y: 80, r: 45, // Head
+            bodyPath: new Path2D("M50,150 a50,50 0 0,1 100,0 Z"),
+            eyeX: 70, eyeY: 70, eyeW: 60, eyeH: 20,
+            lightX: 75, lightY: 72, lightW: 15, lightH: 15,
+            antennaX1: 100, antennaY1: 35, antennaX2: 100, antennaY2: 20,
+            antennaBallX: 100, antennaBallY: 18, antennaBallR: 5
+        };
+
+        function drawPlayer(x, y) {
+            ctx.save();
+            ctx.translate(x - 100, y - 100); // Center the drawing
+            // Body
+            ctx.fillStyle = "#4A90E2";
+            ctx.fill(playerSprite.bodyPath);
+            // Head
+            ctx.beginPath();
+            ctx.arc(playerSprite.x, playerSprite.y, playerSprite.r, 0, Math.PI * 2);
+            ctx.fillStyle = "#90CAF9";
+            ctx.fill();
+            // Eye
+            ctx.fillStyle = "#212121";
+            ctx.fillRect(playerSprite.eyeX, playerSprite.eyeY, playerSprite.eyeW, playerSprite.eyeH);
+            ctx.fillStyle = "#50FA7B";
+            ctx.fillRect(playerSprite.lightX, playerSprite.lightY, playerSprite.lightW, playerSprite.lightH);
+            // Antenna
+            ctx.strokeStyle = "#616161";
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(playerSprite.antennaX1, playerSprite.antennaY1);
+            ctx.lineTo(playerSprite.antennaX2, playerSprite.antennaY2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(playerSprite.antennaBallX, playerSprite.antennaBallY, playerSprite.antennaBallR, 0, Math.PI * 2);
+            ctx.fillStyle = "#FBC02D";
+            ctx.fill();
+            ctx.restore();
+        }
+
+        class GameObject {
+            constructor(x, y, width, height, color, text, speed) {
+                this.x = x;
+                this.y = y;
+                this.width = width;
+                this.height = height;
+                this.color = color;
+                this.text = text;
+                this.speed = speed;
+            }
+            update() {
+                this.y += this.speed;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x, this.y, this.width, this.height);
+                ctx.fillStyle = 'white';
+                ctx.font = '14px Be Vietnam Pro';
+                ctx.textAlign = 'center';
+                ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2 + 5);
+            }
+        }
+
+        function startGame() {
+            canvas.width = canvas.clientWidth;
+            canvas.height = canvas.clientHeight;
+            
+            player = { x: canvas.width / 2 - 30, y: canvas.height - 80, width: 60, height: 60, speed: 8 };
+            obstacles = [];
+            powerUps = [];
+            score = 0;
+            gameFrame = 0;
+            gameRunning = true;
+            gameEndMessage.style.display = 'none';
+            canvas.style.display = 'block';
+            
+            gameLoop();
+        }
+
+        function stopGame() {
+            gameRunning = false;
+            cancelAnimationFrame(animationFrameId);
+        }
+
+        function handleObjects() {
+            // Add obstacles
+            if (gameFrame % 100 === 0) {
+                const obstacleTexts = ["Bài tập", "Điểm số", "Chỉ trích"];
+                const text = obstacleTexts[Math.floor(Math.random() * obstacleTexts.length)];
+                obstacles.push(new GameObject(Math.random() * (canvas.width - 50), -50, 80, 40, '#EF4444', text, 2));
+            }
+            // Add power-ups
+            if (gameFrame % 150 === 0) {
+                const powerUpTexts = ["Tư duy PT", "Hít thở sâu", "Tin vào mình"];
+                const text = powerUpTexts[Math.floor(Math.random() * powerUpTexts.length)];
+                powerUps.push(new GameObject(Math.random() * (canvas.width - 50), -50, 70, 30, '#10B981', text, 2.5));
+            }
+
+            // Update and draw obstacles
+            obstacles.forEach((obs, index) => {
+                obs.update();
+                obs.draw();
+                if (obs.y > canvas.height) {
+                    obstacles.splice(index, 1);
+                }
+                // Collision with player
+                if (checkCollision(player, obs)) {
+                    endGame(false);
+                }
+            });
+
+            // Update and draw power-ups
+            powerUps.forEach((pow, index) => {
+                pow.update();
+                pow.draw();
+                if (pow.y > canvas.height) {
+                    powerUps.splice(index, 1);
+                }
+                // Collision with player
+                if (checkCollision(player, pow)) {
+                    powerUps.splice(index, 1);
+                    score += 10;
+                    if (score >= 50) { // Win condition
+                        endGame(true);
+                    }
+                }
+            });
+        }
+        
+        function checkCollision(rect1, rect2) {
+            return (
+                rect1.x < rect2.x + rect2.width &&
+                rect1.x + rect1.width > rect2.x &&
+                rect1.y < rect2.y + rect2.height &&
+                rect1.y + rect1.height > rect2.y
+            );
+        }
+
+        function updatePlayer() {
+            if (keys.arrowRight && player.x < canvas.width - player.width) {
+                player.x += player.speed;
+            }
+            if (keys.arrowLeft && player.x > 0) {
+                player.x -= player.speed;
+            }
+        }
+        
+        function endGame(isWin) {
+            stopGame();
+            canvas.style.display = 'none';
+            if (isWin) {
+                gameEndMessage.innerHTML = 'Chà, em thật giỏi! Mỗi chướng ngại vật em vượt qua trong game cũng giống như những áp lực ngoài đời vậy. Cứ kiên trì và tin vào bản thân nhé, em có thể làm được mà!';
+            } else {
+                 gameEndMessage.innerHTML = 'Ôi, không sao cả! Thất bại là mẹ thành công mà. Hãy thử lại và cho thấy sự dũng cảm của em nhé!';
+            }
+            gameEndMessage.style.display = 'block';
+            setTimeout(() => {
+                gameModal.style.display = 'none';
+            }, 5000);
+        }
+
+        function gameLoop() {
+            if (!gameRunning) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw player as Tèo
+            drawPlayer(player.x + player.width / 2, player.y + player.height / 2);
+            
+            updatePlayer();
+            handleObjects();
+
+            // Draw score
+            ctx.fillStyle = 'white';
+            ctx.font = '20px Be Vietnam Pro';
+            ctx.textAlign = 'left';
+            ctx.fillText('Điểm: ' + score, 10, 30);
+            
+            gameFrame++;
+            animationFrameId = requestAnimationFrame(gameLoop);
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') keys.arrowRight = true;
+            if (e.key === 'ArrowLeft') keys.arrowLeft = true;
+        });
+        window.addEventListener('keyup', (e) => {
+            if (e.key === 'ArrowRight') keys.arrowRight = false;
+            if (e.key === 'ArrowLeft') keys.arrowLeft = false;
+        });
+    });
+    </script>
+
+</body>
+</html>
