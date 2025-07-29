@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;700&display=swap" rel="stylesheet">
-    
+
     <style>
         /* --- CÀI ĐẶT CSS TOÀN CỤC --- */
         :root {
@@ -20,13 +20,11 @@
             --shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
             --border-radius: 16px;
         }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Be Vietnam Pro', sans-serif;
             background-color: var(--background-color);
@@ -34,7 +32,6 @@
             line-height: 1.6;
             overflow-x: hidden;
         }
-
         /* --- HIỆU ỨNG PRELOADER (MÀN HÌNH CHỜ) --- */
         #preloader {
             position: fixed;
@@ -50,42 +47,35 @@
             flex-direction: column;
             transition: opacity 0.7s ease-in-out, visibility 0.7s ease-in-out;
         }
-
         #preloader.hidden {
             opacity: 0;
             visibility: hidden;
         }
-
         .whale-loader {
             width: 150px;
             height: 150px;
             animation: whale-bob 2s ease-in-out infinite;
         }
-
         @keyframes whale-bob {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-20px); }
         }
-
         #preloader p {
             margin-top: 20px;
             font-size: 1.2rem;
             color: var(--primary-color);
             font-weight: 500;
         }
-
         /* --- BỐ CỤC CHÍNH --- */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
         }
-
         header {
             text-align: center;
             margin-bottom: 3rem;
         }
-
         header h1 {
             font-size: 2.8rem;
             font-weight: 700;
@@ -93,12 +83,10 @@
             margin-bottom: 0.5rem;
             cursor: pointer; /* Để mở admin panel */
         }
-
         header p {
             font-size: 1.2rem;
             color: var(--light-text-color);
         }
-
         /* --- CÁC NÚT BẤM CHÍNH --- */
         .main-actions {
             display: flex;
@@ -107,7 +95,6 @@
             margin-bottom: 3rem;
             flex-wrap: wrap;
         }
-
         .btn {
             padding: 1rem 2rem;
             border: none;
@@ -122,7 +109,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .btn:before {
             content: '';
             position: absolute;
@@ -133,16 +119,14 @@
             background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.4), transparent);
             transition: all 0.6s ease;
         }
-
         .btn:hover:before {
             left: 100%;
         }
-
         .btn:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
-        
+
         /* --- PHẦN NỘI DUNG THÔNG TIN --- */
         #info-section {
             background-color: var(--card-bg);
@@ -153,27 +137,40 @@
             display: none; /* Ẩn mặc định */
             animation: fadeIn 0.5s ease-in-out;
         }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         #info-section h2 {
             text-align: center;
             color: var(--primary-color);
             margin-bottom: 2rem;
         }
-
         .info-block {
-            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            margin-bottom: 2.5rem;
         }
-
+        .info-block:nth-child(odd) {
+             flex-direction: row-reverse;
+        }
+        .info-text {
+            flex: 1;
+        }
+        .info-image {
+            flex: 0 0 250px; /* Hình ảnh có chiều rộng cố định */
+            text-align: center;
+        }
+        .info-image img {
+            max-width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
         .info-block h3 {
             color: var(--secondary-color);
             margin-bottom: 0.5rem;
         }
-
         .info-links h3 {
             color: var(--secondary-color);
             margin-bottom: 1rem;
@@ -194,7 +191,7 @@
             color: var(--secondary-color);
             text-decoration: underline;
         }
-
+        
         /* --- ROBOT CHIBI "TÈO AURA" --- */
         #teo-aura-bot {
             position: fixed;
@@ -206,22 +203,31 @@
             cursor: pointer;
             transition: transform 0.3s ease;
         }
-        
         #teo-aura-bot:hover {
             transform: scale(1.1);
         }
-        
         .robot-svg {
             width: 100%;
             height: 100%;
             animation: robot-float 3s ease-in-out infinite;
+        }
+        .robot-svg .eye, .robot-svg .eye-happy {
+            transition: opacity 0.3s ease;
+        }
+        .robot-svg .eye-happy {
+            opacity: 0;
+        }
+        #teo-aura-bot:hover .robot-svg .eye {
+            opacity: 0;
+        }
+        #teo-aura-bot:hover .robot-svg .eye-happy {
+            opacity: 1;
         }
 
         @keyframes robot-float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-15px); }
         }
-
         #teo-speech-bubble {
             position: fixed;
             bottom: 180px;
@@ -237,12 +243,11 @@
             z-index: 1001;
             font-size: 0.95rem;
         }
-
         #teo-speech-bubble.visible {
             opacity: 1;
             visibility: visible;
         }
-
+        
         /* --- MODAL (KHUNG POP-UP) --- */
         .modal {
             position: fixed;
@@ -258,12 +263,10 @@
             align-items: center;
             animation: modalFadeIn 0.3s ease;
         }
-
         @keyframes modalFadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-
         .modal-content {
             background-color: var(--background-color);
             margin: auto;
@@ -275,7 +278,6 @@
             position: relative;
             text-align: center;
         }
-
         .close-btn {
             color: var(--light-text-color);
             position: absolute;
@@ -286,25 +288,20 @@
             cursor: pointer;
             transition: color 0.3s ease;
         }
-
         .close-btn:hover {
             color: var(--text-color);
         }
-
+        
         /* --- KHẢO SÁT --- */
         #survey-modal h2 {
             color: var(--primary-color);
             margin-bottom: 2rem;
         }
-
-        .survey-step {
-            display: none;
-        }
+        .survey-step { display: none; }
         .survey-step.active {
             display: block;
             animation: fadeIn 0.5s;
         }
-        
         #nickname-step input {
             width: 100%;
             padding: 12px;
@@ -313,24 +310,49 @@
             font-size: 1rem;
             margin-bottom: 1rem;
         }
-
-        #question-container {
-            margin-bottom: 2rem;
+        
+        #question-step-layout {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
+        #survey-robot {
+            flex-shrink: 0;
+        }
+        #survey-robot .robot-svg {
+            width: 120px;
+            height: 120px;
+            animation: none; /* Tắt animation float trong survey */
+        }
+        #question-bubble {
+            flex-grow: 1;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            position: relative;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--primary-color);
+        }
+        #question-bubble::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-width: 10px;
+            border-style: solid;
+            border-color: transparent var(--primary-color) transparent transparent;
+        }
+        
         #question-text {
             font-size: 1.3rem;
             font-weight: 500;
             margin-bottom: 1.5rem;
         }
-
         .answer-options {
             display: flex;
             flex-direction: column;
             gap: 0.8rem;
-            align-items: flex-start;
-            text-align: left;
-            max-width: 350px;
-            margin: 0 auto;
         }
         .answer-options label {
             display: flex;
@@ -347,7 +369,33 @@
         .answer-options label:hover {
             background-color: #e0f2fe;
         }
-
+        
+        #encouragement-text {
+            color: var(--secondary-color);
+            font-weight: 700;
+            text-align: center;
+            margin-top: 1rem;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+            transition: opacity 0.5s ease, height 0.5s ease;
+        }
+        #encouragement-text.visible {
+            opacity: 1;
+            height: 30px; /* Điều chỉnh chiều cao phù hợp */
+            animation: slideUpFadeIn 0.8s ease-out;
+        }
+        @keyframes slideUpFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
         #progress-bar-container {
             width: 100%;
             background-color: #e0e0e0;
@@ -361,23 +409,19 @@
             border-radius: 10px;
             transition: width 0.4s ease;
         }
-
         .survey-nav {
             display: flex;
             justify-content: space-between;
             margin-top: 2rem;
         }
-        
         .survey-nav .btn-secondary {
             background: var(--card-bg);
             color: var(--primary-color);
             border: 2px solid var(--primary-color);
             box-shadow: none;
         }
-        .survey-nav .btn-secondary:hover {
-            background: #e0f2fe;
-        }
-
+        .survey-nav .btn-secondary:hover { background: #e0f2fe; }
+        
         #result-step h3 {
             color: var(--primary-color);
             margin-bottom: 1rem;
@@ -402,17 +446,46 @@
             border-left: 5px solid var(--primary-color);
             text-align: left;
         }
-
+        
         /* --- MINIGAME --- */
         #game-modal .modal-content {
             max-width: 800px;
         }
+        #game-container {
+            position: relative;
+            width: 100%;
+            height: 500px; /* Sẽ được JS điều chỉnh */
+        }
         #game-canvas {
-            background-color: #87CEEB; /* Sky blue */
+            background: linear-gradient(to bottom, #87CEEB 0%, #a2dff3 100%);
             border-radius: 8px;
             width: 100%;
-            height: 500px;
+            height: 100%;
             display: block;
+        }
+        /* MODIFIED: Nút điều khiển trên di động (bỏ nút bắn) */
+        #mobile-controls {
+            display: none; /* Ẩn trên desktop */
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            justify-content: space-between; /* Đặt 2 nút ở 2 bên */
+            align-items: center;
+            padding: 0 30px;
+        }
+        .mobile-btn {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            font-weight: bold;
+            border: 2px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
         }
         #game-modal h2 {
             color: var(--primary-color);
@@ -422,75 +495,62 @@
             margin-bottom: 1rem;
             color: var(--light-text-color);
         }
-        #game-end-message {
-            display: none;
-            padding: 2rem;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        #game-end-screen {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none; /* Sửa thành flex để hiển thị */
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
             color: white;
-            border-radius: var(--border-radius);
-            font-size: 1.5rem;
-            font-weight: 500;
+            padding: 20px;
+            border-radius: 8px;
             animation: fadeIn 0.5s;
         }
-
+        #game-end-robot { width: 150px; height: 150px; margin-bottom: 20px; }
+        #game-end-message { font-size: 1.3rem; max-width: 80%; }
+        
         /* --- ADMIN PANEL --- */
-        #admin-modal .modal-content {
-            max-width: 800px;
-        }
-        #admin-modal h2 {
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-        }
-        #admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-        #admin-table th, #admin-table td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }
-        #admin-table th {
-            background-color: #e0f2fe;
-            color: var(--primary-color);
-        }
-        #admin-table tbody tr:nth-child(even) {
-            background-color: #f8fafc;
-        }
-
+        #admin-modal .modal-content { max-width: 800px; }
+        #admin-modal h2 { color: var(--primary-color); margin-bottom: 1.5rem; }
+        #admin-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        #admin-table th, #admin-table td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        #admin-table th { background-color: #e0f2fe; color: var(--primary-color); }
+        #admin-table tbody tr:nth-child(even) { background-color: #f8fafc; }
+        
         /* --- RESPONSIVE DESIGN --- */
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 2.2rem;
-            }
-            .main-actions {
+            header h1 { font-size: 2.2rem; }
+            .main-actions { flex-direction: column; align-items: center; }
+            
+            .info-block, .info-block:nth-child(odd) {
                 flex-direction: column;
-                align-items: center;
             }
-            #teo-aura-bot {
-                width: 100px;
-                height: 100px;
-                right: 10px;
-                bottom: 10px;
+            .info-image { margin-bottom: 1.5rem; }
+
+            #teo-aura-bot { width: 100px; height: 100px; right: 10px; bottom: 10px; }
+            #teo-speech-bubble { bottom: 120px; right: 10px; max-width: calc(100vw - 40px); }
+            
+            #question-step-layout { flex-direction: column; gap: 10px; }
+            #question-bubble::before {
+                left: 50%;
+                top: -20px;
+                transform: translateX(-50%);
+                border-color: transparent transparent var(--primary-color) transparent;
             }
-            #teo-speech-bubble {
-                bottom: 120px;
-                right: 10px;
-                max-width: 250px;
-            }
-            .modal-content {
-                padding: 20px;
-            }
-            #game-canvas {
-                height: 400px;
-            }
+
+            .modal-content { padding: 20px; }
+            
+            #game-container { height: 400px; }
+            #mobile-controls { display: flex; } /* Hiển thị nút trên di động */
         }
     </style>
 </head>
 <body>
 
-    <!-- PHẦN 1: HIỆU ỨNG PRELOADER (MÀN HÌNH CHỜ) -->
     <div id="preloader">
         <svg class="whale-loader" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <path fill="#3B82F6" d="M95.6,35.9c-2.4-9.3-9.8-16.7-19.1-19.1c-2.8-0.7-5.7-1.1-8.6-1.1c-12.8,0-23.8,8.1-28.3,19.6 c-0.5,1.2-0.8,2.5-1.1,3.8c-2.3,0.1-4.5,0.5-6.6,1.2c-7.3,2.4-12.9,8-15.3,15.3c-0.7,2.1-1.1,4.3-1.2,6.6 c-1.2-0.3-2.5-0.5-3.8-0.8C4.5,60,0,55.1,0,48.5c0-3.3,1.3-6.4,3.5-8.6c-1.8-4.4-2.2-9.3-1.1-14c2.4-9.3,9.8-16.7,19.1-19.1 C24.4,6,27.7,5.4,31.1,5.4c3.4,0,6.7,0.6,9.8,1.8c4.4-5.3,10.6-8.8,17.6-8.8c9.9,0,18.3,6.5,21.3,15.5c2.9-1,6-1.6,9.2-1.6 c7.6,0,14.3,3.7,18.5,9.4C102.3,28.2,99.9,33.1,95.6,35.9z"/>
@@ -499,65 +559,77 @@
         <p>Đang tải thế giới diệu kỳ...</p>
     </div>
 
-    <!-- PHẦN 2: NỘI DUNG CHÍNH CỦA TRANG -->
     <div class="container">
-        <!-- TIÊU ĐỀ -->
         <header>
             <h1 id="main-title">Hành Trình Chữa Lành & Trưởng Thành</h1>
             <p>Khám phá mối liên hệ giữa khả năng phục hồi và áp lực học tập</p>
         </header>
 
-        <!-- CÁC NÚT HÀNH ĐỘNG -->
         <div class="main-actions">
             <button class="btn" id="info-btn">Tìm hiểu thêm thông tin</button>
             <button class="btn" id="survey-btn">Làm bài khảo sát nhanh</button>
             <button class="btn" id="game-btn">Minigame: Đường đua dũng cảm</button>
         </div>
 
-        <!-- ROBOT "TÈO AURA" VÀ BONG BÓNG CHAT -->
         <div id="teo-aura-bot">
-             <svg class="robot-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                <!-- Body -->
-                <path fill="#4A90E2" d="M50,150 a50,50 0 0,1 100,0 Z"/>
-                <!-- Head -->
-                <circle cx="100" cy="80" r="45" fill="#90CAF9"/>
-                <!-- Eye -->
-                <rect x="70" y="70" width="60" height="20" rx="10" fill="#212121"/>
-                <rect x="75" y="72" width="15" height="15" fill="#50FA7B" class="robot-eye-light"/>
-                <!-- Antenna -->
-                <line x1="100" y1="35" x2="100" y2="20" stroke="#616161" stroke-width="4"/>
-                <circle cx="100" cy="18" r="5" fill="#FBC02D"/>
+            <svg class="robot-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <g>
+                    <path d="M100 55 C 110 40, 110 30, 100 20" stroke="#616161" stroke-width="4" fill="none" />
+                    <circle cx="100" cy="18" r="7" fill="#FBC02D"/>
+                    <path d="M 60,110 C 40,110 30,80 60,60 C 80,40 120,40 140,60 C 170,80 160,110 140,110 Z" fill="#90CAF9"/>
+                    <path d="M 50,180 C 30,180 20,130 50,120 L 150,120 C 180,130 170,180 150,180 Z" fill="#4A90E2"/>
+                     <g class="eye">
+                        <line x1="80" y1="85" x2="95" y2="85" stroke="#212121" stroke-width="5" stroke-linecap="round"/>
+                        <line x1="105" y1="85" x2="120" y2="85" stroke="#212121" stroke-width="5" stroke-linecap="round"/>
+                    </g>
+                    <g class="eye-happy">
+                        <path d="M 80 85 Q 87.5 95, 95 85" stroke="#212121" stroke-width="5" fill="none" stroke-linecap="round"/>
+                        <path d="M 105 85 Q 112.5 95, 120 85" stroke="#212121" stroke-width="5" fill="none" stroke-linecap="round"/>
+                    </g>
+                </g>
             </svg>
         </div>
         <div id="teo-speech-bubble">
             Xin chào em! Anh là Tèo Aura. Em có điều gì cần anh giúp không?
         </div>
 
-
-        <!-- PHẦN NỘI DUNG THÔNG TIN (ẨN MẶC ĐỊNH) -->
         <section id="info-section">
             <h2>Mối Liên Hệ Giữa Khả Năng Phục Hồi và Áp Lực Học Tập</h2>
-            
             <div class="info-block">
-                <h3>1. Áp lực học tập là gì?</h3>
-                <p>Áp lực học tập là những căng thẳng, lo âu mà học sinh phải đối mặt từ nhiều phía: khối lượng bài vở lớn, kỳ vọng của gia đình, thầy cô, sự cạnh tranh từ bạn bè và cả những mục tiêu do chính bản thân đặt ra. Đây là một phần không thể tránh khỏi trong quá trình học tập, nhưng nếu quá mức, nó có thể gây ảnh hưởng tiêu cực đến sức khỏe tinh thần và thể chất.</p>
+                <div class="info-text">
+                    <h3>1. Áp lực học tập là gì?</h3>
+                    <p>Áp lực học tập là những căng thẳng, lo âu mà học sinh phải đối mặt từ nhiều phía: khối lượng bài vở lớn, kỳ vọng của gia đình, thầy cô, sự cạnh tranh từ bạn bè và cả những mục tiêu do chính bản thân đặt ra.
+                    Đây là một phần không thể tránh khỏi trong quá trình học tập, nhưng nếu quá mức, nó có thể gây ảnh hưởng tiêu cực đến sức khỏe tinh thần và thể chất.</p>
+                </div>
+                <div class="info-image">
+                    <img src="https://placehold.co/400x300/3B82F6/FFFFFF?text=Áp+Lực" alt="Minh họa áp lực học tập">
+                </div>
             </div>
-
             <div class="info-block">
-                <h3>2. Khả năng phục hồi (Resilience) - "Sức bật" tinh thần</h3>
-                <p>Khả năng phục hồi là năng lực vượt qua, thích ứng và thậm chí là phát triển mạnh mẽ hơn sau khi đối mặt với nghịch cảnh, chấn thương, hoặc căng thẳng. Nó không phải là "không bao giờ gục ngã", mà là khả năng "đứng dậy sau mỗi lần vấp ngã". Đây là một kỹ năng có thể rèn luyện được.</p>
+                <div class="info-text">
+                    <h3>2. Khả năng phục hồi (Resilience) - "Sức bật" tinh thần</h3>
+                    <p>Khả năng phục hồi là năng lực vượt qua, thích ứng và thậm chí là phát triển mạnh mẽ hơn sau khi đối mặt với nghịch cảnh, chấn thương, hoặc căng thẳng.
+                    Nó không phải là "không bao giờ gục ngã", mà là khả năng "đứng dậy sau mỗi lần vấp ngã".
+                    Đây là một kỹ năng có thể rèn luyện được.</p>
+                </div>
+                <div class="info-image">
+                     <img src="https://placehold.co/400x300/10B981/FFFFFF?text=Phục+Hồi" alt="Minh họa khả năng phục hồi">
+                </div>
             </div>
-
-            <div class="info-block">
-                <h3>3. Mối liên hệ quan trọng</h3>
-                <p>Học sinh có khả năng phục hồi tốt thường có xu hướng:
+             <div class="info-block">
+                 <div class="info-text">
+                    <h3>3. Mối liên hệ quan trọng</h3>
+                    <p>Học sinh có khả năng phục hồi tốt thường có xu hướng:
                     <br>- Xem thách thức là cơ hội để học hỏi.
                     <br>- Có kỹ năng giải quyết vấn đề hiệu quả hơn.
                     <br>- Duy trì thái độ lạc quan và tin tưởng vào bản thân.
                     <br>- Biết cách tìm kiếm sự giúp đỡ khi cần thiết.
                     <br>Nhờ vậy, họ có thể "chuyển hóa" áp lực thành động lực, giảm thiểu các tác động tiêu cực của stress và đạt được thành công một cách bền vững hơn.</p>
+                 </div>
+                 <div class="info-image">
+                     <img src="https://placehold.co/400x300/F59E0B/FFFFFF?text=Thành+Công" alt="Minh họa thành công">
+                </div>
             </div>
-
             <div class="info-links">
                 <h3>Các bài báo và tài liệu tham khảo:</h3>
                 <ul>
@@ -569,9 +641,6 @@
         </section>
     </div>
 
-    <!-- PHẦN 3: CÁC MODAL (KHUNG POP-UP) -->
-
-    <!-- MODAL KHẢO SÁT -->
     <div id="survey-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
@@ -581,11 +650,21 @@
                 <input type="text" id="nickname-input" placeholder="Nhập biệt danh của em...">
                 <button class="btn" id="start-survey-btn">Bắt đầu</button>
             </div>
+            
             <div id="question-step" class="survey-step">
-                <div id="question-container">
-                    <p id="question-text"></p>
-                    <div class="answer-options" id="answer-options"></div>
+                <div id="question-step-layout">
+                    <div id="survey-robot">
+                    </div>
+                    <div id="question-bubble">
+                        <div id="question-container">
+                            <p id="question-text"></p>
+                            <div class="answer-options" id="answer-options"></div>
+                        </div>
+                    </div>
                 </div>
+                
+                <p id="encouragement-text">Cố gắng lên nhé, em sắp hoàn thành xong rồi!</p>
+
                 <div id="progress-bar-container">
                     <div id="progress-bar"></div>
                 </div>
@@ -594,6 +673,7 @@
                     <button class="btn" id="next-btn">Tiếp theo</button>
                 </div>
             </div>
+
             <div id="result-step" class="survey-step">
                 <h2>Kết quả của em</h2>
                 <h3 id="result-nickname"></h3>
@@ -606,18 +686,27 @@
         </div>
     </div>
 
-    <!-- MODAL MINIGAME -->
     <div id="game-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <h2>Minigame: Đường đua dũng cảm</h2>
-            <p>Sử dụng các phím mũi tên (← →) để di chuyển Tèo. Hãy thu thập các vật phẩm hỗ trợ và né tránh chướng ngại vật nhé!</p>
-            <canvas id="game-canvas"></canvas>
-             <div id="game-end-message"></div>
+            <p>Dùng phím mũi tên (← →) hoặc nút bấm trên màn hình để di chuyển.
+            <br>Hãy thu thập vật phẩm hỗ trợ (🛡️⚡️) và né tránh chướng ngại vật nhé!</p>
+            
+            <div id="game-container">
+                <canvas id="game-canvas"></canvas>
+                <div id="mobile-controls">
+                    <div class="mobile-btn" id="left-btn">←</div>
+                    <div class="mobile-btn" id="right-btn">→</div>
+                </div>
+                <div id="game-end-screen">
+                     <div id="game-end-robot"></div>
+                     <p id="game-end-message"></p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- MODAL ADMIN -->
     <div id="admin-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
@@ -634,479 +723,518 @@
                     </tr>
                 </thead>
                 <tbody id="admin-table-body">
-                    <!-- Dữ liệu sẽ được chèn vào đây bằng JavaScript -->
                 </tbody>
             </table>
         </div>
     </div>
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
 
-    <script>
-    // --- SCRIPT CHUNG CHO TOÀN BỘ TRANG WEB ---
+    const preloader = document.getElementById('preloader');
+    window.addEventListener('load', () => {
+        preloader.classList.add('hidden');
+    });
 
-    document.addEventListener('DOMContentLoaded', () => {
-        
-        // --- PHẦN 1: KHỞI TẠO VÀ XỬ LÝ PRELOADER ---
-        const preloader = document.getElementById('preloader');
-        window.addEventListener('load', () => {
-            preloader.classList.add('hidden');
-        });
+    const infoBtn = document.getElementById('info-btn');
+    const surveyBtn = document.getElementById('survey-btn');
+    const gameBtn = document.getElementById('game-btn');
+    const infoSection = document.getElementById('info-section');
+    const surveyModal = document.getElementById('survey-modal');
+    const gameModal = document.getElementById('game-modal');
+    const adminModal = document.getElementById('admin-modal');
+    const closeBtns = document.querySelectorAll('.close-btn');
+    const teoBot = document.getElementById('teo-aura-bot');
+    const teoSpeechBubble = document.getElementById('teo-speech-bubble');
+    const originalTeoSpeech = teoSpeechBubble.innerHTML;
+    const teoCuteSVG = teoBot.innerHTML; 
 
-        // --- PHẦN 2: CÁC BIẾN VÀ ĐỐI TƯỢNG DOM ---
-        const infoBtn = document.getElementById('info-btn');
-        const surveyBtn = document.getElementById('survey-btn');
-        const gameBtn = document.getElementById('game-btn');
-        
-        const infoSection = document.getElementById('info-section');
-        
-        const surveyModal = document.getElementById('survey-modal');
-        const gameModal = document.getElementById('game-modal');
-        const adminModal = document.getElementById('admin-modal');
-        
-        const closeBtns = document.querySelectorAll('.close-btn');
-        const teoBot = document.getElementById('teo-aura-bot');
-        const teoSpeechBubble = document.getElementById('teo-speech-bubble');
+    infoBtn.addEventListener('click', () => {
+        const isVisible = infoSection.style.display === 'block';
+        infoSection.style.display = isVisible ? 'none' : 'block';
+        infoBtn.textContent = isVisible ? 'Ẩn bớt thông tin' : 'Tìm hiểu thêm thông tin';
+    });
+    
+    surveyBtn.addEventListener('click', () => {
+        surveyModal.style.display = 'flex';
+        resetSurvey();
+    });
 
-        // --- PHẦN 3: XỬ LÝ CÁC SỰ KIỆN CHÍNH ---
+    gameBtn.addEventListener('click', () => {
+        gameModal.style.display = 'flex';
+        setTimeout(startGame, 100); 
+    });
 
-        // Hiển thị/ẩn phần thông tin
-        infoBtn.addEventListener('click', () => {
-            if (infoSection.style.display === 'block') {
-                infoSection.style.display = 'none';
-            } else {
-                infoSection.style.display = 'block';
+    closeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            btn.closest('.modal').style.display = 'none';
+            if (gameRunning) {
+                stopGame();
             }
-        });
-
-        // Mở các modal
-        surveyBtn.addEventListener('click', () => {
-            surveyModal.style.display = 'flex';
-            resetSurvey();
-        });
-        gameBtn.addEventListener('click', () => {
-            gameModal.style.display = 'flex';
-            startGame(); // Bắt đầu game khi mở modal
-        });
-        
-        // Đóng các modal
-        closeBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                btn.closest('.modal').style.display = 'none';
-                if (gameRunning) {
-                    stopGame(); // Dừng game nếu đóng modal
-                }
-            });
-        });
-        window.addEventListener('click', (event) => {
-            if (event.target.classList.contains('modal')) {
-                event.target.style.display = 'none';
-                if (gameRunning) {
-                    stopGame();
-                }
-            }
-        });
-
-        // Tương tác với Tèo Aura
-        let speechTimeout;
-        teoBot.addEventListener('mouseenter', () => {
-            clearTimeout(speechTimeout);
-            teoSpeechBubble.classList.add('visible');
-        });
-        teoBot.addEventListener('mouseleave', () => {
-            speechTimeout = setTimeout(() => {
-                teoSpeechBubble.classList.remove('visible');
-            }, 2000);
-        });
-        
-        // --- PHẦN 4: LOGIC CỦA BÀI KHẢO SÁT ---
-        const surveyData = []; // Nơi lưu trữ dữ liệu khảo sát
-        const GAD7_QUESTIONS = [
-            "Cảm thấy lo lắng, bồn chồn hoặc căng thẳng?",
-            "Không thể dừng lại hoặc kiểm soát được sự lo lắng?",
-            "Lo lắng quá nhiều về những điều khác nhau?",
-            "Khó thư giãn?",
-            "Cảm thấy bồn chồn đến mức không thể ngồi yên?",
-            "Dễ trở nên cáu kỉnh hoặc khó chịu?",
-            "Cảm thấy sợ hãi như thể có điều gì đó khủng khiếp sắp xảy ra?"
-        ];
-        const GAD7_ANSWERS = [
-            { text: "Không ngày nào", value: 0 },
-            { text: "Vài ngày", value: 1 },
-            { text: "Hơn một nửa số ngày", value: 2 },
-            { text: "Gần như mỗi ngày", value: 3 }
-        ];
-
-        let currentQuestionIndex = 0;
-        let userAnswers = [];
-        let userNickname = '';
-
-        const nicknameStep = document.getElementById('nickname-step');
-        const questionStep = document.getElementById('question-step');
-        const resultStep = document.getElementById('result-step');
-        const startSurveyBtn = document.getElementById('start-survey-btn');
-        const nicknameInput = document.getElementById('nickname-input');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const questionText = document.getElementById('question-text');
-        const answerOptionsContainer = document.getElementById('answer-options');
-        const progressBar = document.getElementById('progress-bar');
-        const closeResultBtn = document.getElementById('close-result-btn');
-
-        function resetSurvey() {
-            currentQuestionIndex = 0;
-            userAnswers = [];
-            userNickname = '';
-            nicknameInput.value = '';
-            nicknameStep.classList.add('active');
-            questionStep.classList.remove('active');
-            resultStep.classList.remove('active');
-        }
-
-        startSurveyBtn.addEventListener('click', () => {
-            userNickname = nicknameInput.value.trim();
-            if (userNickname === '') {
-                alert('Em vui lòng nhập biệt danh nhé!');
-                return;
-            }
-            nicknameStep.classList.remove('active');
-            questionStep.classList.add('active');
-            showQuestion();
-        });
-        
-        function showQuestion() {
-            const question = GAD7_QUESTIONS[currentQuestionIndex];
-            questionText.textContent = `${currentQuestionIndex + 1}. ${question}`;
-            
-            answerOptionsContainer.innerHTML = '';
-            GAD7_ANSWERS.forEach((answer, index) => {
-                const optionId = `q${currentQuestionIndex}-a${index}`;
-                const checked = userAnswers[currentQuestionIndex] === answer.value ? 'checked' : '';
-                answerOptionsContainer.innerHTML += `
-                    <label for="${optionId}">
-                        <input type="radio" name="answer" id="${optionId}" value="${answer.value}" ${checked}>
-                        ${answer.text}
-                    </label>
-                `;
-            });
-
-            updateProgressBar();
-            updateNavButtons();
-        }
-
-        function updateProgressBar() {
-            const progress = ((currentQuestionIndex + 1) / GAD7_QUESTIONS.length) * 100;
-            progressBar.style.width = `${progress}%`;
-        }
-
-        function updateNavButtons() {
-            prevBtn.style.visibility = currentQuestionIndex === 0 ? 'hidden' : 'visible';
-            nextBtn.textContent = currentQuestionIndex === GAD7_QUESTIONS.length - 1 ? 'Hoàn thành' : 'Tiếp theo';
-        }
-
-        nextBtn.addEventListener('click', () => {
-            const selectedAnswer = document.querySelector('input[name="answer"]:checked');
-            if (!selectedAnswer) {
-                alert('Em hãy chọn một câu trả lời nhé!');
-                return;
-            }
-            userAnswers[currentQuestionIndex] = parseInt(selectedAnswer.value);
-
-            if (currentQuestionIndex < GAD7_QUESTIONS.length - 1) {
-                currentQuestionIndex++;
-                showQuestion();
-            } else {
-                showResults();
-            }
-        });
-
-        prevBtn.addEventListener('click', () => {
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
-                showQuestion();
-            }
-        });
-
-        function showResults() {
-            questionStep.classList.remove('active');
-            resultStep.classList.add('active');
-
-            const totalScore = userAnswers.reduce((sum, answer) => sum + answer, 0);
-            let level = '';
-            let advice = '';
-
-            if (totalScore <= 4) {
-                level = "Mức độ lo âu tối thiểu";
-                advice = `Em đang làm rất tốt trong việc quản lý cảm xúc của mình. Hãy tiếp tục duy trì những thói quen tích cực nhé. Tèo rất tự hào về em!`;
-            } else if (totalScore <= 9) {
-                level = "Mức độ lo âu nhẹ";
-                advice = `Thỉnh thoảng cảm thấy lo lắng một chút là chuyện bình thường thôi em à. Hãy thử dành thời gian cho sở thích của mình hoặc trò chuyện với bạn bè, người thân. Mọi chuyện rồi sẽ ổn thôi.`;
-            } else if (totalScore <= 14) {
-                level = "Mức độ lo âu vừa";
-                advice = `Tèo hiểu em đang cảm thấy khá căng thẳng. Đừng quên hít thở sâu và cho phép mình được nghỉ ngơi nhé. Em không hề đơn độc đâu, Tèo luôn ở đây lắng nghe.`;
-            } else {
-                level = "Mức độ lo âu nặng";
-                advice = `Em à, em đã rất dũng cảm khi đối mặt với những cảm xúc này. Đừng ngần ngại tìm kiếm sự giúp đỡ từ chuyên gia tâm lý hoặc người lớn mà em tin tưởng nhé. Em xứng đáng được yêu thương và hỗ trợ.`;
-            }
-
-            document.getElementById('result-nickname').textContent = `Dành cho ${userNickname},`;
-            document.getElementById('result-score').textContent = totalScore;
-            document.getElementById('result-level').textContent = level;
-            document.getElementById('result-advice').textContent = advice;
-            
-            // Lưu kết quả
-            const resultData = {
-                nickname: userNickname,
-                score: totalScore,
-                level: level,
-                timestamp: new Date().toLocaleString('vi-VN')
-            };
-            surveyData.push(resultData);
-            updateAdminPanel(); // Cập nhật bảng admin
-        }
-
-        closeResultBtn.addEventListener('click', () => {
-            surveyModal.style.display = 'none';
-        });
-
-        // --- PHẦN 5: LOGIC CỦA ADMIN PANEL ---
-        const mainTitle = document.getElementById('main-title');
-        let titleClickCount = 0;
-        mainTitle.addEventListener('click', () => {
-            titleClickCount++;
-            if (titleClickCount >= 5) {
-                adminModal.style.display = 'flex';
-                titleClickCount = 0; // Reset
-            }
-            setTimeout(() => { titleClickCount = 0; }, 2000); // Reset sau 2s
-        });
-
-        function updateAdminPanel() {
-            const tableBody = document.getElementById('admin-table-body');
-            const participantCount = document.getElementById('participant-count');
-            
-            participantCount.textContent = surveyData.length;
-            tableBody.innerHTML = '';
-            surveyData.forEach((data, index) => {
-                const row = `
-                    <tr>
-                        <td>${index + 1}</td>
-                        <td>${data.nickname}</td>
-                        <td>${data.score}</td>
-                        <td>${data.level}</td>
-                        <td>${data.timestamp}</td>
-                    </tr>
-                `;
-                tableBody.innerHTML += row;
-            });
-        }
-        
-        // --- PHẦN 6: LOGIC CỦA MINIGAME ---
-        const canvas = document.getElementById('game-canvas');
-        const ctx = canvas.getContext('2d');
-        const gameEndMessage = document.getElementById('game-end-message');
-
-        let player, obstacles, powerUps;
-        let score = 0;
-        let gameFrame = 0;
-        let gameRunning = false;
-        let animationFrameId;
-
-        const keys = {
-            arrowRight: false,
-            arrowLeft: false,
-        };
-
-        // Player object
-        const playerSprite = {
-            x: 100, y: 80, r: 45, // Head
-            bodyPath: new Path2D("M50,150 a50,50 0 0,1 100,0 Z"),
-            eyeX: 70, eyeY: 70, eyeW: 60, eyeH: 20,
-            lightX: 75, lightY: 72, lightW: 15, lightH: 15,
-            antennaX1: 100, antennaY1: 35, antennaX2: 100, antennaY2: 20,
-            antennaBallX: 100, antennaBallY: 18, antennaBallR: 5
-        };
-
-        function drawPlayer(x, y) {
-            ctx.save();
-            ctx.translate(x - 100, y - 100); // Center the drawing
-            // Body
-            ctx.fillStyle = "#4A90E2";
-            ctx.fill(playerSprite.bodyPath);
-            // Head
-            ctx.beginPath();
-            ctx.arc(playerSprite.x, playerSprite.y, playerSprite.r, 0, Math.PI * 2);
-            ctx.fillStyle = "#90CAF9";
-            ctx.fill();
-            // Eye
-            ctx.fillStyle = "#212121";
-            ctx.fillRect(playerSprite.eyeX, playerSprite.eyeY, playerSprite.eyeW, playerSprite.eyeH);
-            ctx.fillStyle = "#50FA7B";
-            ctx.fillRect(playerSprite.lightX, playerSprite.lightY, playerSprite.lightW, playerSprite.lightH);
-            // Antenna
-            ctx.strokeStyle = "#616161";
-            ctx.lineWidth = 4;
-            ctx.beginPath();
-            ctx.moveTo(playerSprite.antennaX1, playerSprite.antennaY1);
-            ctx.lineTo(playerSprite.antennaX2, playerSprite.antennaY2);
-            ctx.stroke();
-            ctx.beginPath();
-            ctx.arc(playerSprite.antennaBallX, playerSprite.antennaBallY, playerSprite.antennaBallR, 0, Math.PI * 2);
-            ctx.fillStyle = "#FBC02D";
-            ctx.fill();
-            ctx.restore();
-        }
-
-        class GameObject {
-            constructor(x, y, width, height, color, text, speed) {
-                this.x = x;
-                this.y = y;
-                this.width = width;
-                this.height = height;
-                this.color = color;
-                this.text = text;
-                this.speed = speed;
-            }
-            update() {
-                this.y += this.speed;
-            }
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.fillRect(this.x, this.y, this.width, this.height);
-                ctx.fillStyle = 'white';
-                ctx.font = '14px Be Vietnam Pro';
-                ctx.textAlign = 'center';
-                ctx.fillText(this.text, this.x + this.width / 2, this.y + this.height / 2 + 5);
-            }
-        }
-
-        function startGame() {
-            canvas.width = canvas.clientWidth;
-            canvas.height = canvas.clientHeight;
-            
-            player = { x: canvas.width / 2 - 30, y: canvas.height - 80, width: 60, height: 60, speed: 8 };
-            obstacles = [];
-            powerUps = [];
-            score = 0;
-            gameFrame = 0;
-            gameRunning = true;
-            gameEndMessage.style.display = 'none';
-            canvas.style.display = 'block';
-            
-            gameLoop();
-        }
-
-        function stopGame() {
-            gameRunning = false;
-            cancelAnimationFrame(animationFrameId);
-        }
-
-        function handleObjects() {
-            // Add obstacles
-            if (gameFrame % 100 === 0) {
-                const obstacleTexts = ["Bài tập", "Điểm số", "Chỉ trích"];
-                const text = obstacleTexts[Math.floor(Math.random() * obstacleTexts.length)];
-                obstacles.push(new GameObject(Math.random() * (canvas.width - 50), -50, 80, 40, '#EF4444', text, 2));
-            }
-            // Add power-ups
-            if (gameFrame % 150 === 0) {
-                const powerUpTexts = ["Tư duy PT", "Hít thở sâu", "Tin vào mình"];
-                const text = powerUpTexts[Math.floor(Math.random() * powerUpTexts.length)];
-                powerUps.push(new GameObject(Math.random() * (canvas.width - 50), -50, 70, 30, '#10B981', text, 2.5));
-            }
-
-            // Update and draw obstacles
-            obstacles.forEach((obs, index) => {
-                obs.update();
-                obs.draw();
-                if (obs.y > canvas.height) {
-                    obstacles.splice(index, 1);
-                }
-                // Collision with player
-                if (checkCollision(player, obs)) {
-                    endGame(false);
-                }
-            });
-
-            // Update and draw power-ups
-            powerUps.forEach((pow, index) => {
-                pow.update();
-                pow.draw();
-                if (pow.y > canvas.height) {
-                    powerUps.splice(index, 1);
-                }
-                // Collision with player
-                if (checkCollision(player, pow)) {
-                    powerUps.splice(index, 1);
-                    score += 10;
-                    if (score >= 50) { // Win condition
-                        endGame(true);
-                    }
-                }
-            });
-        }
-        
-        function checkCollision(rect1, rect2) {
-            return (
-                rect1.x < rect2.x + rect2.width &&
-                rect1.x + rect1.width > rect2.x &&
-                rect1.y < rect2.y + rect2.height &&
-                rect1.y + rect1.height > rect2.y
-            );
-        }
-
-        function updatePlayer() {
-            if (keys.arrowRight && player.x < canvas.width - player.width) {
-                player.x += player.speed;
-            }
-            if (keys.arrowLeft && player.x > 0) {
-                player.x -= player.speed;
-            }
-        }
-        
-        function endGame(isWin) {
-            stopGame();
-            canvas.style.display = 'none';
-            if (isWin) {
-                gameEndMessage.innerHTML = 'Chà, em thật giỏi! Mỗi chướng ngại vật em vượt qua trong game cũng giống như những áp lực ngoài đời vậy. Cứ kiên trì và tin vào bản thân nhé, em có thể làm được mà!';
-            } else {
-                 gameEndMessage.innerHTML = 'Ôi, không sao cả! Thất bại là mẹ thành công mà. Hãy thử lại và cho thấy sự dũng cảm của em nhé!';
-            }
-            gameEndMessage.style.display = 'block';
-            setTimeout(() => {
-                gameModal.style.display = 'none';
-            }, 5000);
-        }
-
-        function gameLoop() {
-            if (!gameRunning) return;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Draw player as Tèo
-            drawPlayer(player.x + player.width / 2, player.y + player.height / 2);
-            
-            updatePlayer();
-            handleObjects();
-
-            // Draw score
-            ctx.fillStyle = 'white';
-            ctx.font = '20px Be Vietnam Pro';
-            ctx.textAlign = 'left';
-            ctx.fillText('Điểm: ' + score, 10, 30);
-            
-            gameFrame++;
-            animationFrameId = requestAnimationFrame(gameLoop);
-        }
-
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') keys.arrowRight = true;
-            if (e.key === 'ArrowLeft') keys.arrowLeft = true;
-        });
-        window.addEventListener('keyup', (e) => {
-            if (e.key === 'ArrowRight') keys.arrowRight = false;
-            if (e.key === 'ArrowLeft') keys.arrowLeft = false;
         });
     });
-    </script>
 
+    window.addEventListener('click', (event) => {
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = 'none';
+            if (gameRunning) {
+                stopGame();
+            }
+        }
+    });
+
+    let speechTimeout;
+    teoBot.addEventListener('mouseenter', () => {
+        clearTimeout(speechTimeout);
+        teoSpeechBubble.innerHTML = 'Chúc em có một ngày tốt lành! 😊';
+        teoSpeechBubble.classList.add('visible');
+    });
+    teoBot.addEventListener('mouseleave', () => {
+        speechTimeout = setTimeout(() => {
+            teoSpeechBubble.classList.remove('visible');
+            setTimeout(() => { teoSpeechBubble.innerHTML = originalTeoSpeech; }, 400);
+        }, 2000);
+    });
+
+    // --- PHẦN 4: LOGIC CỦA BÀI KHẢO SÁT ---
+    const surveyData = [];
+    const GAD7_QUESTIONS = [
+        "Cảm thấy lo lắng, bồn chồn hoặc căng thẳng?",
+        "Không thể dừng lại hoặc kiểm soát được sự lo lắng?",
+        "Lo lắng quá nhiều về những điều khác nhau?",
+        "Khó thư giãn?",
+        "Cảm thấy bồn chồn đến mức không thể ngồi yên?",
+        "Dễ trở nên cáu kỉnh hoặc khó chịu?",
+        "Cảm thấy sợ hãi như thể có điều gì đó khủng khiếp sắp xảy ra?"
+    ];
+    const GAD7_ANSWERS = [
+        { text: "Không ngày nào", value: 0 },
+        { text: "Vài ngày", value: 1 },
+        { text: "Hơn một nửa số ngày", value: 2 },
+        { text: "Gần như mỗi ngày", value: 3 }
+    ];
+    let currentQuestionIndex = 0;
+    let userAnswers = [];
+    let userNickname = '';
+    
+    const nicknameStep = document.getElementById('nickname-step');
+    const questionStep = document.getElementById('question-step');
+    const resultStep = document.getElementById('result-step');
+    const startSurveyBtn = document.getElementById('start-survey-btn');
+    const nicknameInput = document.getElementById('nickname-input');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const questionText = document.getElementById('question-text');
+    const answerOptionsContainer = document.getElementById('answer-options');
+    const progressBar = document.getElementById('progress-bar');
+    const closeResultBtn = document.getElementById('close-result-btn');
+    const surveyRobotContainer = document.getElementById('survey-robot');
+    const encouragementText = document.getElementById('encouragement-text');
+
+    function resetSurvey() {
+        currentQuestionIndex = 0;
+        userAnswers = [];
+        userNickname = '';
+        nicknameInput.value = '';
+        nicknameStep.classList.add('active');
+        questionStep.classList.remove('active');
+        resultStep.classList.remove('active');
+        surveyRobotContainer.innerHTML = teoCuteSVG;
+    }
+
+    startSurveyBtn.addEventListener('click', () => {
+        userNickname = nicknameInput.value.trim();
+        if (userNickname === '') {
+            alert('Em vui lòng nhập biệt danh nhé!');
+            return;
+        }
+        nicknameStep.classList.remove('active');
+        questionStep.classList.add('active');
+        showQuestion();
+    });
+
+    function showQuestion() {
+        const question = GAD7_QUESTIONS[currentQuestionIndex];
+        questionText.textContent = `Tèo hỏi nhỏ nè: Trong 2 tuần qua, em có thường... "${question}"`;
+
+        answerOptionsContainer.innerHTML = '';
+        GAD7_ANSWERS.forEach((answer, index) => {
+            const optionId = `q${currentQuestionIndex}-a${index}`;
+            const checked = userAnswers[currentQuestionIndex] === answer.value ? 'checked' : '';
+            answerOptionsContainer.innerHTML += `
+                <label for="${optionId}">
+                    <input type="radio" name="answer" id="${optionId}" value="${answer.value}" ${checked}>
+                    ${answer.text}
+                </label>
+            `;
+        });
+        
+        if (currentQuestionIndex === 5) {
+            encouragementText.classList.add('visible');
+        } else {
+            encouragementText.classList.remove('visible');
+        }
+
+        updateProgressBar();
+        updateNavButtons();
+    }
+
+    function updateProgressBar() {
+        const progress = ((currentQuestionIndex + 1) / GAD7_QUESTIONS.length) * 100;
+        progressBar.style.width = `${progress}%`;
+    }
+
+    function updateNavButtons() {
+        prevBtn.style.visibility = currentQuestionIndex === 0 ? 'hidden' : 'visible';
+        nextBtn.textContent = currentQuestionIndex === GAD7_QUESTIONS.length - 1 ? 'Hoàn thành' : 'Tiếp theo';
+    }
+
+    nextBtn.addEventListener('click', () => {
+        const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+        if (!selectedAnswer) {
+            alert('Em hãy chọn một câu trả lời nhé!');
+            return;
+        }
+        userAnswers[currentQuestionIndex] = parseInt(selectedAnswer.value);
+        if (currentQuestionIndex < GAD7_QUESTIONS.length - 1) {
+            currentQuestionIndex++;
+            showQuestion();
+        } else {
+            showResults();
+        }
+    });
+    
+    prevBtn.addEventListener('click', () => {
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            showQuestion();
+        }
+    });
+
+    function showResults() {
+        questionStep.classList.remove('active');
+        resultStep.classList.add('active');
+        const totalScore = userAnswers.reduce((sum, answer) => sum + answer, 0);
+        let level = '';
+        let advice = '';
+
+        if (totalScore <= 4) {
+            level = "Mức độ lo âu tối thiểu";
+            advice = `Em đang làm rất tốt trong việc quản lý cảm xúc của mình. Hãy tiếp tục duy trì những thói quen tích cực nhé. Tèo rất tự hào về em!`;
+        } else if (totalScore <= 9) {
+            level = "Mức độ lo âu nhẹ";
+            advice = `Thỉnh thoảng cảm thấy lo lắng một chút là chuyện bình thường thôi em à. Hãy thử dành thời gian cho sở thích của mình hoặc trò chuyện với bạn bè, người thân. Mọi chuyện rồi sẽ ổn thôi.`;
+        } else if (totalScore <= 14) {
+            level = "Mức độ lo âu vừa";
+            advice = `Tèo hiểu em đang cảm thấy khá căng thẳng. Đừng quên hít thở sâu và cho phép mình được nghỉ ngơi nhé. Em không hề đơn độc đâu, Tèo luôn ở đây lắng nghe.`;
+        } else {
+            level = "Mức độ lo âu nặng";
+            advice = `Em à, em đã rất dũng cảm khi đối mặt với những cảm xúc này. Đừng ngần ngại tìm kiếm sự giúp đỡ từ chuyên gia tâm lý hoặc người lớn mà em tin tưởng nhé. Em xứng đáng được yêu thương và hỗ trợ.`;
+        }
+        document.getElementById('result-nickname').textContent = `Dành cho ${userNickname},`;
+        document.getElementById('result-score').textContent = totalScore;
+        document.getElementById('result-level').textContent = level;
+        document.getElementById('result-advice').textContent = advice;
+
+        const resultData = {
+            nickname: userNickname, score: totalScore, level: level,
+            timestamp: new Date().toLocaleString('vi-VN')
+        };
+        surveyData.push(resultData);
+        updateAdminPanel();
+    }
+    
+    closeResultBtn.addEventListener('click', () => {
+        surveyModal.style.display = 'none';
+    });
+
+    // --- PHẦN 5: LOGIC CỦA ADMIN PANEL ---
+    const mainTitle = document.getElementById('main-title');
+    let titleClickCount = 0;
+    mainTitle.addEventListener('click', () => {
+        titleClickCount++;
+        if (titleClickCount >= 5) {
+            adminModal.style.display = 'flex';
+            titleClickCount = 0;
+        }
+        setTimeout(() => { titleClickCount = 0; }, 2000);
+    });
+
+    function updateAdminPanel() {
+        const tableBody = document.getElementById('admin-table-body');
+        const participantCount = document.getElementById('participant-count');
+        participantCount.textContent = surveyData.length;
+        tableBody.innerHTML = '';
+        surveyData.forEach((data, index) => {
+            const row = `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${data.nickname}</td>
+                    <td>${data.score}</td>
+                    <td>${data.level}</td>
+                    <td>${data.timestamp}</td>
+                </tr>
+            `;
+            tableBody.innerHTML += row;
+        });
+    }
+
+    // --- PHẦN 6: LOGIC CỦA MINIGAME (MODIFIED) ---
+    const canvas = document.getElementById('game-canvas');
+    const ctx = canvas.getContext('2d');
+    const gameEndScreen = document.getElementById('game-end-screen');
+    const gameEndRobot = document.getElementById('game-end-robot');
+    const gameEndMessage = document.getElementById('game-end-message');
+    
+    // MODIFIED: Loại bỏ `lasers` và `finishLine`
+    let player, obstacles, powerUps;
+    let score = 0, gameFrame = 0, gameRunning = false, animationFrameId;
+    const WIN_SCORE = 100;
+
+    const keys = { arrowRight: false, arrowLeft: false };
+    
+    const playerRobotSVG = new Image();
+    playerRobotSVG.src = "data:image/svg+xml," + encodeURIComponent(teoCuteSVG);
+
+    class Player {
+        constructor() {
+            this.width = 70;
+            this.height = 70;
+            this.x = canvas.width / 2 - this.width / 2;
+            this.y = canvas.height - this.height - 20;
+            this.baseSpeed = 6;
+            this.speed = this.baseSpeed;
+            this.speedBoostTimer = 0;
+            this.hasShield = false;
+            this.shieldTimer = 0;
+        }
+        update() {
+            if (keys.arrowRight && this.x < canvas.width - this.width) this.x += this.speed;
+            if (keys.arrowLeft && this.x > 0) this.x -= this.speed;
+            
+            if(this.speedBoostTimer > 0) {
+                this.speedBoostTimer--;
+                if (this.speedBoostTimer === 0) this.speed = this.baseSpeed;
+            }
+             if(this.shieldTimer > 0) {
+                this.shieldTimer--;
+                if (this.shieldTimer === 0) this.hasShield = false;
+            }
+        }
+        draw() {
+            ctx.drawImage(playerRobotSVG, this.x, this.y, this.width, this.height);
+            if(this.hasShield) {
+                ctx.beginPath();
+                ctx.arc(this.x + this.width / 2, this.y + this.height / 2, this.width / 2 + 5, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(59, 130, 246, 0.3)';
+                ctx.strokeStyle = 'rgba(59, 130, 246, 0.8)';
+                ctx.lineWidth = 3;
+                ctx.fill();
+                ctx.stroke();
+            }
+        }
+    }
+    
+    class GameObject {
+         constructor(x, y, speed, type) {
+            this.x = x;
+            this.y = y;
+            this.speed = speed;
+            this.type = type;
+            this.width = 50; this.height = 50;
+            this.text = ''; this.color = 'red'; this.emoji = '❓';
+            
+            switch(type) {
+                case 'obstacle':
+                    const obsTypes = [{e: '📚', t: 'Bài tập'}, {e: '📉', t: 'Điểm số'}, {e: '🗣️', t: 'Chỉ trích'}];
+                    const chosenObs = obsTypes[Math.floor(Math.random() * obsTypes.length)];
+                    this.emoji = chosenObs.e; this.text = chosenObs.t; this.color = '#EF4444';
+                    this.width = 80; this.height = 40;
+                    break;
+                case 'shield':
+                    this.emoji = '🛡️'; this.text = 'Khiên'; this.color = '#3B82F6';
+                    break;
+                case 'speed':
+                    this.emoji = '⚡️'; this.text = 'Tốc độ'; this.color = '#F59E0B';
+                    break;
+            }
+        }
+        update() { this.y += this.speed; }
+        draw() {
+            ctx.fillStyle = this.color;
+            ctx.globalAlpha = 0.8;
+            roundRect(ctx, this.x, this.y, this.width, this.height, 10, true, false);
+            ctx.globalAlpha = 1;
+            ctx.fillStyle = 'white';
+            ctx.font = '24px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(this.emoji, this.x + this.width / 2, this.y + this.height / 2 + 8);
+        }
+    }
+
+    function startGame() {
+        canvas.width = canvas.parentElement.clientWidth;
+        canvas.height = canvas.parentElement.clientHeight;
+        
+        player = new Player();
+        obstacles = []; powerUps = [];
+        score = 0; gameFrame = 0; gameRunning = true;
+        
+        gameEndScreen.style.display = 'none';
+        
+        gameLoop();
+    }
+    
+    function stopGame() {
+        gameRunning = false;
+        cancelAnimationFrame(animationFrameId);
+    }
+    
+    function handleObjects() {
+        // Add obstacles
+        if (gameFrame % 90 === 0) {
+            obstacles.push(new GameObject(Math.random() * (canvas.width - 80), -50, Math.random() * 1.5 + 2, 'obstacle'));
+        }
+        // Add power-ups
+        if (gameFrame % 250 === 0) {
+            const types = ['shield', 'speed']; // MODIFIED: Bỏ 'laser'
+            const type = types[Math.floor(Math.random() * types.length)];
+            powerUps.push(new GameObject(Math.random() * (canvas.width - 50), -50, 2, type));
+        }
+        
+        // Update & draw obstacles
+        obstacles.forEach((obs, index) => {
+            obs.update();
+            obs.draw();
+            if (obs.y > canvas.height) obstacles.splice(index, 1);
+            if (checkCollision(player, obs)) {
+                 if (player.hasShield) {
+                    player.hasShield = false;
+                    obstacles.splice(index, 1);
+                } else {
+                    endGame(false);
+                }
+            }
+        });
+
+        // Update & draw power-ups
+        powerUps.forEach((pow, index) => {
+            pow.update();
+            pow.draw();
+            if (pow.y > canvas.height) powerUps.splice(index, 1);
+            if (checkCollision(player, pow)) {
+                powerUps.splice(index, 1);
+                score += 10;
+                switch(pow.type) {
+                    case 'shield': player.hasShield = true; player.shieldTimer = 600; break;
+                    case 'speed': player.speed = player.baseSpeed * 1.5; player.speedBoostTimer = 300; break;
+                }
+                // MODIFIED: Win condition trực tiếp
+                if (score >= WIN_SCORE) {
+                    endGame(true);
+                }
+            }
+        });
+    }
+
+    function checkCollision(rect1, rect2) {
+        return ( rect1.x < rect2.x + rect2.width && rect1.x + rect1.width > rect2.x &&
+                 rect1.y < rect2.y + rect2.height && rect1.y + rect1.height > rect2.y );
+    }
+
+    function endGame(isWin) {
+        stopGame();
+        gameEndScreen.style.display = 'flex';
+        
+        let teoEndSVG;
+        if(isWin) {
+            teoEndSVG = `<svg class="robot-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><g transform="translate(0, 10)"><path d="M100 55 C 110 40, 110 30, 100 20" stroke="#616161" stroke-width="4" fill="none" /><circle cx="100" cy="18" r="7" fill="#FBC02D"/><path d="M 60,110 C 40,110 30,80 60,60 C 80,40 120,40 140,60 C 170,80 160,110 140,110 Z" fill="#90CAF9"/><path d="M 50,180 C 30,180 20,130 50,120 L 150,120 C 180,130 170,180 150,180 Z" fill="#4A90E2"/><path d="M 80 85 Q 87.5 95, 95 85" stroke="#212121" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M 105 85 Q 112.5 95, 120 85" stroke="#212121" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M 90 100 Q 100 115, 110 100" stroke="#212121" stroke-width="5" fill="none" stroke-linecap="round"/></g></svg>`;
+            gameEndMessage.innerHTML = `Chiến thắng rồi! Em thật là cừ khôi! <br> Hãy luôn giữ vững tinh thần dũng cảm này nhé!`;
+        } else {
+            teoEndSVG = `<svg class="robot-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><g transform="translate(0, 10)"><path d="M100 55 C 90 40, 90 30, 100 20" stroke="#616161" stroke-width="4" fill="none" /><circle cx="100" cy="18" r="7" fill="#FBC02D"/><path d="M 60,110 C 40,110 30,80 60,60 C 80,40 120,40 140,60 C 170,80 160,110 140,110 Z" fill="#90CAF9"/><path d="M 50,180 C 30,180 20,130 50,120 L 150,120 C 180,130 170,180 150,180 Z" fill="#4A90E2"/><path d="M 80 90 Q 87.5 80, 95 90" stroke="#212121" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M 105 90 Q 112.5 80, 120 90" stroke="#212121" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M 90 110 Q 100 100, 110 110" stroke="#212121" stroke-width="5" fill="none" stroke-linecap="round"/></g></svg>`;
+            gameEndMessage.innerHTML = `Không sao cả đâu em ơi! Thất bại là mẹ thành công mà. <br> Điều quan trọng là em đã dũng cảm đối mặt. Hãy thử lại nhé!`;
+        }
+        gameEndRobot.innerHTML = teoEndSVG;
+        
+        setTimeout(() => {
+            gameModal.style.display = 'none';
+        }, 6000);
+    }
+    
+    function drawUI() {
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 24px Be Vietnam Pro';
+        
+        // Draw score on the left
+        ctx.textAlign = 'left';
+        ctx.fillText('Điểm: ' + score, 20, 40);
+        
+        // Draw win progress bar in the center
+        let progress = score / WIN_SCORE;
+        if (progress > 1) progress = 1;
+        
+        let barWidth = 200;
+        let barX = canvas.width/2 - barWidth/2;
+        ctx.fillStyle = '#ffffff80'; // semi-transparent white
+        ctx.fillRect(barX, 20, barWidth, 20);
+        ctx.fillStyle = '#F59E0B'; // gold color
+        ctx.fillRect(barX, 20, barWidth * progress, 20);
+        
+        ctx.strokeStyle = 'white';
+        ctx.strokeRect(barX, 20, barWidth, 20);
+    }
+
+    function gameLoop() {
+        if (!gameRunning) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        player.draw();
+        player.update();
+        
+        handleObjects();
+        drawUI();
+
+        gameFrame++;
+        animationFrameId = requestAnimationFrame(gameLoop);
+    }
+    
+    // --- Event Listeners for Game Control ---
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') keys.arrowRight = true;
+        if (e.key === 'ArrowLeft') keys.arrowLeft = true;
+    });
+    window.addEventListener('keyup', (e) => {
+        if (e.key === 'ArrowRight') keys.arrowRight = false;
+        if (e.key === 'ArrowLeft') keys.arrowLeft = false;
+    });
+
+    // Mobile Controls
+    const leftBtn = document.getElementById('left-btn');
+    const rightBtn = document.getElementById('right-btn');
+
+    leftBtn.addEventListener('touchstart', (e) => { e.preventDefault(); keys.arrowLeft = true; });
+    leftBtn.addEventListener('touchend', (e) => { e.preventDefault(); keys.arrowLeft = false; });
+    rightBtn.addEventListener('touchstart', (e) => { e.preventDefault(); keys.arrowRight = true; });
+    rightBtn.addEventListener('touchend', (e) => { e.preventDefault(); keys.arrowRight = false; });
+    
+    function roundRect(ctx, x, y, width, height, radius, fill, stroke) {
+      if (typeof stroke === 'undefined') { stroke = true; }
+      if (typeof radius === 'undefined') { radius = 5; }
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.lineTo(x + width - radius, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+      ctx.lineTo(x + width, y + height - radius);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      ctx.lineTo(x + radius, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+      ctx.lineTo(x, y + radius);
+      ctx.quadraticCurveTo(x, y, x + radius, y);
+      ctx.closePath();
+      if (fill) { ctx.fill(); }
+      if (stroke) { ctx.stroke(); }
+    }
+});
+</script>
 </body>
 </html>
